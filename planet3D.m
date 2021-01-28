@@ -175,8 +175,8 @@ function planet3D(planet,position,units,background)
             r = R+conversion_factor*(7000+((80000-7000)/n_new)*i);
             
             % plots the ith line in process of forming Saturns rings
-            plot3(r*cos(theta),r*sin(theta),zeros(size(theta)),'color',...
-                colors(i,:));
+            plot3(position(1)+r*cos(theta),position(2)+r*sin(theta),...
+                position(3)*ones(size(theta)),'color',colors(i,:));
             
         end
         hold off;
