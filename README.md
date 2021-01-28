@@ -1,13 +1,15 @@
 # `planet3D`
-Creates high-resolution renderings (in the “Figure” environment) of the planetary bodies in our solar system (includes Sun, Moon, &amp; Pluto).
-
-Lightens or darkens an RGB color by a specified proportion.
+Creates high-resolution renderings of the Earth and the major celestial bodies in our solar system for space mechanics applications.
 
 
 ## Syntax
 
-`c_new = lighten_darken(c,p,'lighten')`\
-`c_new = lighten_darken(c,p,'darken')`
+`planet3D(planet)`\
+`planet3D(planet,position)`\
+`planet3D(planet,position,units)`\
+`planet3D(planet,position,units,background)`\
+
+**NOTE:** If you don't want to specify `position` or `units`, for example, but do want to specify `background`, then you would use the syntax `planet3D(planet,[],[],background)`. The empty brackets are needed as placeholders, because `background` can only be read correctly if it is the fourth passed parameter. However, we don't need placeholders if we aren't "skipping over" parameters. For example, if we wanted to specify just the `position`, then we could use the syntax `planet3D(planet,position)`.
 
 
 ## Description
