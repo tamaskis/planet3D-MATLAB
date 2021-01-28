@@ -7,14 +7,15 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 `planet3D(planet)`\
 `planet3D(planet,position)`\
 `planet3D(planet,position,units)`\
-`planet3D(planet,position,units,background)`\
+`planet3D(planet,position,units,background)`
 
 **NOTE:** If you don't want to specify `position` or `units`, for example, but do want to specify `background`, then you would use the syntax `planet3D(planet,[],[],background)`. The empty brackets are needed as placeholders, because `background` can only be read correctly if it is the fourth passed parameter. However, we don't need placeholders if we aren't "skipping over" parameters. For example, if we wanted to specify just the `position`, then we could use the syntax `planet3D(planet,position)`.
 
 
 ## Description
 
-`c_new = lighten_darken(c,p,'lighten')` lightens the input color, `c`, by `p`<img src="https://latex.codecogs.com/svg.latex?\times&space;100\%" title="\times 100\%" />. `c` and `c_new` are RGB triplets, while `p` is a number between 0 and 1.
+`planet3D(planet,position,units,background)` draws a celestial body.
+ - item
 
 `c_new = lighten_darken(c,p,'darken')` darkens the input color, `c`, by `p`<img src="https://latex.codecogs.com/svg.latex?\times&space;100\%" title="\times 100\%" />. `c` and `c_new` are RGB triplets, while `p` is a number between 0 and 1.
 
