@@ -15,7 +15,10 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 ## Description
 
 `planet3D(planet,position,units,background)` draws a celestial body.
- - item
+ - `planet`: Can be specified as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
+ - `position`: (OPTIONAL) Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
+ - `units`: (OPTIONALS) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
+ - `background`: (OPTIONAL) Specifies the background to use. Backgrounds available are `Stars`, `Milky Way`, and `Black`.
 
 `c_new = lighten_darken(c,p,'darken')` darkens the input color, `c`, by `p`<img src="https://latex.codecogs.com/svg.latex?\times&space;100\%" title="\times 100\%" />. `c` and `c_new` are RGB triplets, while `p` is a number between 0 and 1.
 
