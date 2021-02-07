@@ -10,6 +10,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 **NOTE:** If you don't want to specify `position`, for example, but do want to specify `units`, then you would use the syntax `planet3D(planet,[],units)`. The empty brackets are needed as placeholders, because `units` can only be read correctly if it is the third passed parameter. However, we don't need placeholders if we aren't "skipping over" parameters. For example, if we wanted to specify just the `position`, then we could use the syntax `planet3D(planet,position)`.
 
+**NOTE:** Use the `background` function (see below) to set the plot background. When using `background` to set the plot background, the function call on `background` must occur *before* the function call on `planet3D`, otherwise the background will be plotted *over* the celestial body.
+
 
 ## Description
 
