@@ -18,7 +18,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
  - `position`: (OPTIONAL) Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
  - `units`: (OPTIONALS) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
 
-
+<br/><br/> 
+<br/><br/> 
 # `background`
 Sets the plot background for drawing celestial bodies in 3D.
 
