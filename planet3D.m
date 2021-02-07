@@ -1,7 +1,7 @@
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
-%   planet3D(planet,position,units,background) draws a celestial body.
+%   planet3D(planet,position,units) draws a celestial body.
 %    --> planet: Can be specified as 'Sun', 'Moon', 'Mercury', 'Venus',
 %                'Earth', 'Earth Cloudy', 'Earth Night', 'Earth Night 
 %                Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
@@ -14,22 +14,28 @@
 %    --> units: (OPTIONAL) Specifies the units the celestial body should be
 %               drawn in. Units available are 'km', 'AU', 'm', 'ft', 'mi',
 %               and 'nmi'.
-%    --> background: (OPTIONAL) Specifies the background to use.
-%                    Backgrounds available are 'Stars', 'Milky Way', and 
-%                   'Black'.
 %
-%   NOTE: If you don't want to specify "position" or "units", for example,
-%   but do want to specify "background", then you would use the syntax
-%   "planet3D(planet,[],[],background)". The empty brackets are needed as
-%   placeholders, because "background" can only be read correctly if it is
-%   the fourth passed parameter. However, we don't need placeholders if we
-%   aren't "skipping over" parameters. For example, if we wanted to specify
-%   just the "position", then we could use the syntax 
-%   "planet3D(planet,position)".
+%   NOTE: If you don't want to specify "position", for example, but do want
+%         to specify "units", then you would use the syntax
+%         "planet3D(planet,[],units)". The empty brackets are needed as
+%         placeholders, because "units" can only be read correctly if it is
+%         the third passed parameter. However, we don't need placeholders 
+%         if we aren't "skipping over" parameters. For example, if we 
+%         wanted to specify just the "position", then we could use the 
+%         syntax "planet3D(planet,position)".
 %
-% See https://github.com/tamaskis/planet3D-MATLAB for additional 
-% documentation and examples. Examples can also be found in EXAMPLES.m 
-% (included with download).
+%   NOTE: Use the "background" function included with download to set the
+%         plot background. When using "background" to set the plot 
+%         background, the function call on "background" must occur before
+%         the function call on "planet3D", otherwise the background will be
+%         plotted over the celestial body.
+%
+% MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
+% GitHub: https://github.com/tamaskis/planet3D-MATLAB
+%
+% See "3D Earth and Celestial Bodies - MATLAB Implementation.pdf" for
+% additional documentation and examples. Examples can also be found in 
+% EXAMPLES.m. Both of these files are included with the download.
 %
 % Copyright (c) 2021 Tamas Kis
 
@@ -37,37 +43,13 @@
 
 %% FUNCTION
 
-function planet3D(planet,position,units,background)
+% INPUT: planet - name of celestial body
+%        position - position of planet's geometric center
+%        units - units for drawing planet
+% OUTPUT: 3D plot of specified celestial body 
+function planet3D(planet,position,units)
     
-    % picture background
-    if (nargin == 4) && (~strcmp(background,'Black'))
-        
-        % determines which image background to use
-        if strcmp(background,'Milky Way')
-            cdata_background = imread('Images/Milky Way.png');
-        elseif strcmp(background,'Stars')
-            cdata_background = imread('Images/Stars.png');
-        end
-        
-        % axis for background
-        axis;
-        
-        % renders background
-        imshow(cdata_background);
-        
-        % starts new axes object on which planet will be rendered
-        axes;
-        
-        % turns coordinate axes off
-        axis off;
-        
-    % black background
-    elseif (nargin == 4) && strcmp(background,'Black')
-        axis;
-        set(gca,'color','k');
-    end
-    
-    % sets position of planet's center (at origin by default)
+    % sets position of planet's geometric center (at origin by default)
     if (nargin == 1) || isempty(position)
         position = [0;0;0];
     end
