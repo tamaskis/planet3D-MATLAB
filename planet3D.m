@@ -1,7 +1,8 @@
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
-%   planet3D(planet,position,units) draws a celestial body.
+%   planet3D(planet,position,gmst,reference_plane,units,transparency) draws
+%   a celestial body.
 %    --> planet: Can be specified as 'Sun', 'Moon', 'Mercury', 'Venus',
 %                'Earth', 'Earth Cloudy', 'Earth Night', 'Earth Night 
 %                Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
@@ -11,18 +12,31 @@
 %                  [0,0,0]. NOTE: If you are also specifying "units", make
 %                  sure you input "position" in the correct units (i.e. in
 %                  the units you intend to use).
+%    --> gmst: (OPTIONAL) Specifies the Greenwich mean sidereal time (the
+%              angle from the direction of the vernal equinox to 0 degrees
+%              longitude, measured in degrees).
+%    --> reference_plane: (OPTIONAL) Specifies which reference plane the
+%                         celestial body is drawn with respect to. If
+%                         specified as 'equatorial', the reference plane is
+%                         taken to be the equatorial plane of the celestial
+%                         body. If specified as 'ecliptic', the celestial
+%                         body will be tilted by the obliquity (i.e. the
+%                         angle between the ecliptic plane and the
+%                         equatorial plane).
 %    --> units: (OPTIONAL) Specifies the units the celestial body should be
 %               drawn in. Units available are 'km', 'AU', 'm', 'ft', 'mi',
 %               and 'nmi'.
+%    --> transparency: (OPTIONAL) Specifies how transparent the celestial
+%                      body is (0 for 100% transparency, 1 for 100% solid).
 %
-%   NOTE: If you don't want to specify "position", for example, but do want
-%         to specify "units", then you would use the syntax
-%         "planet3D(planet,[],units)". The empty brackets are needed as
-%         placeholders, because "units" can only be read correctly if it is
-%         the third passed parameter. However, we don't need placeholders 
-%         if we aren't "skipping over" parameters. For example, if we 
-%         wanted to specify just the "position", then we could use the 
-%         syntax "planet3D(planet,position)".
+%   NOTE: All parameters except for "planet" are optional. If you "skip 
+%         over" parameters, you need to use empty bracket (i.e. "[]") as 
+%         placeholders, otherwise you can emit parameters altogether. For 
+%         example, if you don't want to specify "position", but do want to
+%         specify "units", then you would use the syntax 
+%          "planet3D(planet,[],[],[],units)". Alternatively, if we wanted 
+%          to specify just the "position", we could use the syntax 
+%          "planet3D(planet,position)".
 %
 %   NOTE: Use the "background" function included with download to set the
 %         plot background. When using "background" to set the plot 
@@ -33,11 +47,12 @@
 % MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
 %
-% See "3D Earth and Celestial Bodies - MATLAB Implementation.pdf" for
-% additional documentation and examples. Examples can also be found in 
-% EXAMPLES.m. Both of these files are included with the download.
+% See "DOCUMENTATION.pdf" for additional documentation and examples. 
+% Examples can also be found in EXAMPLES.m. Both of these files are 
+% included with the download.
 %
 % Copyright (c) 2021 Tamas Kis
+% Last Update: 2021-03-24
 
 
 
@@ -45,14 +60,12 @@
 
 % INPUT: planet - name of celestial body
 %        position - position of planet's geometric center
+%        gmst - Greenwich mean sidereal time [deg]
+%        reference_plane - 'equatorial' or 'ecliptic'
 %        units - units for drawing planet
+%        transparency - 0 for 100% transparent, 1 for 100% solid
 % OUTPUT: 3D plot of specified celestial body 
-function planet3D(planet,position,units)
-    
-    % sets position of planet's geometric center (at origin by default)
-    if (nargin == 1) || isempty(position)
-        position = [0;0;0];
-    end
+function planet3D(planet,position,gmst,reference_plane,units,transparency)
     
     % conversion factors
     factors = {'km'   1;
@@ -62,39 +75,65 @@ function planet3D(planet,position,units)
                'mi'   100000/160934.4;
                'nmi'  1/1.852};
 
+    % sets default position (origin) of planet's geometric center
+    if (nargin == 1) || isempty(position)
+        position = [0;0;0];
+    end
+    
+    % sets default rotation angle to 0
+    if (nargin < 3) || isempty(gmst)
+        gmst = 0;
+    end
+    
     % determines conversion factor to use
-    if (nargin < 3) || isempty(units)
+    if (nargin < 5) || isempty(units)
         conversion_factor = 1;
     else
         conversion_factor = factors{strcmpi(factors(:,1),units),2};
     end
     
-    % data
-            % planet/body           % radius, R [km]  flattening, f
-    data = {'Sun'                   696000            0.000009;
-            'Moon'                  1738.0            0.0012;
-            'Mercury'               2439.0            0.0000;
-            'Venus'                 6052.0            0.000;
-            'Earth'                 6378.1363         0.0033528131;
-            'Earth Cloudy'          6378.1363         0.0033528131;
-            'Earth Night'           6378.1363         0.0033528131;
-            'Earth Night Cloudy'    6378.1363         0.0033528131;
-            'Mars'                  3397.2            0.00647630;
-            'Jupiter'               71492.0           0.0648744;
-            'Saturn'                60268.0           0.0979624;
-            'Uranus'                25559.0           0.0229273;
-            'Neptune'               24764.0           0.0171;
-            'Pluto'                 1151.0            0.0};
+    % sets default reference plane to equatorial plane
+    if (nargin < 4) || isempty(reference_plane)
+        reference_plane = 'equatorial';
+    end
     
-    % determines equatorial radius and flattening
+    % sets default transparency to 1 (so celestial body is solid)
+    if (nargin < 6) || isempty(transparency)
+        transparency = 1;
+    end
+    
+            % planet/body           % radius, R [km]  flattening, f   obliquity, obliquity [deg]
+    data = {'Sun'                   696000            0.000009        0;
+            'Moon'                  1738.0            0.0012          6.68;
+            'Mercury'               2439.0            0.0000          0.0;
+            'Venus'                 6052.0            0.000           177.3;
+            'Earth'                 6378.1363         0.0033528131    23.45;
+            'Earth Cloudy'          6378.1363         0.0033528131    23.45;
+            'Earth Night'           6378.1363         0.0033528131    23.45;
+            'Earth Night Cloudy'    6378.1363         0.0033528131    23.45;
+            'Mars'                  3397.2            0.00647630      25.19;
+            'Jupiter'               71492.0           0.0648744       3.12;
+            'Saturn'                60268.0           0.0979624       26.73;
+            'Uranus'                25559.0           0.0229273       97.86;
+            'Neptune'               24764.0           0.0171          29.56;
+            'Pluto'                 1151.0            0.0             118.0};
+    
+    % determines mean equatorial radius and flattening
     R = data{strcmpi(data(:,1),planet),2};
     f = data{strcmpi(data(:,1),planet),3};
+    
+    % determines obliquity
+    if strcmp(reference_plane,'ecliptic')
+        obliquity = data{strcmpi(data(:,1),planet),4};
+    else
+        obliquity = 0;
+    end
 
     % determines semi-major and semi-minor axes of body
     a = conversion_factor*R;
     b = a*(1-f);
 
-    % coordinates of ellipsoid (uses 400 panels)s
+    % coordinates of ellipsoid (uses 400 panels)
     [x,y,z] = ellipsoid(position(1),position(2),position(3),a,a,b,400);
     
     % reads in image
@@ -108,11 +147,20 @@ function planet3D(planet,position,units)
     end
 
     % draws planet
-    DiffuseStrength = 1;
-    SpecularStrength = 0;
-    surface(x,y,z,'facecolor','texture','edgecolor','none','cdata',...
-        flipud(cdata),'DiffuseStrength',DiffuseStrength,...
-        'SpecularStrength',SpecularStrength);
+    planet_surface = surface(x,y,z,'facecolor','texture','edgecolor',...
+        'none','cdata',flipud(cdata),'DiffuseStrength',1,...
+        'SpecularStrength',0,'FaceAlpha',transparency);
+    
+    % tilts celestial body if referenced to ecliptic plane
+    rotate(planet_surface,[1,0,0],-obliquity);
+    
+    % obtains new K axis
+    rotation_matrix = [1,0,0;0,cosd(obliquity),sind(obliquity);0,...
+        -sind(obliquity),cosd(obliquity)];
+    K = rotation_matrix*[0;0;1];
+    
+    % rotates celestial body about its axis
+    rotate(planet_surface,K',gmst);
     
     % draws rings of Saturn if drawing Saturn
     if strcmp(planet,'Saturn')
@@ -156,9 +204,23 @@ function planet3D(planet,position,units)
             % (https://en.wikipedia.org/wiki/Rings_of_Saturn)
             r = R+conversion_factor*(7000+((80000-7000)/n_new)*i);
             
+            % x, y, and z coordinates of Saturns rings in equatorial plane
+            x_ring = position(1)+r*cos(theta);
+            y_ring = position(2)+r*sin(theta);
+            z_ring = position(3)*ones(size(theta));
+            
+            % rotates ring to equatorial plane (uses same rotation matrix
+            % as tilting the planet earlier in code)
+            for j = 1:length(x_ring)
+                new_coordinates = rotation_matrix*[x_ring(j);y_ring(j);...
+                    z_ring(j)];
+                x_ring(j) = new_coordinates(1);
+                y_ring(j) = new_coordinates(2);
+                z_ring(j) = new_coordinates(3);
+            end
+            
             % plots the ith line in process of forming Saturns rings
-            plot3(position(1)+r*cos(theta),position(2)+r*sin(theta),...
-                position(3)*ones(size(theta)),'color',colors(i,:));
+            plot3(x_ring,y_ring,z_ring,'color',colors(i,:));
             
         end
         hold off;
