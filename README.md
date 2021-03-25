@@ -4,9 +4,7 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 ## Syntax
 
-`planet3D(planet)`\
-`planet3D(planet,position)`\
-`planet3D(planet,position,units)`
+`planet3D(planet,position,gmst,reference_plane,units,transparency)`
 
 **NOTE:** If you don't want to specify `position`, for example, but do want to specify `units`, then you would use the syntax `planet3D(planet,[],units)`. The empty brackets are needed as placeholders, because `units` can only be read correctly if it is the third passed parameter. However, we don't need placeholders if we aren't "skipping over" parameters. For example, if we wanted to specify just the `position`, then we could use the syntax `planet3D(planet,position)`.
 
