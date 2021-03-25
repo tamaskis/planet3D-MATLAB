@@ -13,10 +13,11 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 ## Description
 
-`planet3D(planet,position,units)` draws a celestial body.
+`planet3D(planet,position,gmst,reference_plane,units,transparency)` draws a celestial body.
  - `planet`: Can be specified as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
  - `position`: (OPTIONAL) Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
- - `units`: (OPTIONALS) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
+ - `gmst`: (OPTIONAL)
+ - `units`: (OPTIONAL) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
 
 <br/><br/> 
 <br/><br/> 
