@@ -38,7 +38,7 @@ planet3D('Sun');
 %planet3D('Pluto');
 
 % light source
-light('Position',[1 -1 0]);
+light('Position',[1,-1,0]);
 
 
 
@@ -47,7 +47,7 @@ light('Position',[1 -1 0]);
 % plot
 figure;
 planet3D('Saturn',[],[],'ecliptic')
-light('Position',[1 -1 0]);
+light('Position',[1,-1,0]);
 grid on;
 
 
@@ -79,14 +79,14 @@ R_PQW_to_IJK = [cO*cw-sO*ci*sw   -cO*sw-sO*ci*cw   sO*si;
                 si*sw            si*cw             ci];
 
 % rotates coordinates of orbit to ECI frame
-r_I = zeros(size(nu));
-r_J = zeros(size(nu));
-r_K = zeros(size(nu));
+rI = zeros(size(nu));
+rJ = zeros(size(nu));
+rK = zeros(size(nu));
 for j = 1:length(nu)
     new_coordinates = R_PQW_to_IJK*[r_P(j);r_Q(j);r_W(j)];
-    r_I(j) = new_coordinates(1);
-    r_J(j) = new_coordinates(2);
-    r_K(j) = new_coordinates(3);
+    rI(j) = new_coordinates(1);
+    rJ(j) = new_coordinates(2);
+    rK(j) = new_coordinates(3);
 end
 
 % plot
@@ -94,7 +94,7 @@ figure;
 background('Black');
 hold on;
 planet3D('Earth Cloudy',[],[],[],[],0.25);
-plot3(r_I,r_J,r_K,'color',[140,21,21]/255,'linewidth',1.5);
+plot3(rI,rJ,rK,'color',[140,21,21]/255,'linewidth',1.5);
 hold off;
 grid on;
 ax = gca;

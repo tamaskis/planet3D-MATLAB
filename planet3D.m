@@ -52,18 +52,18 @@
 % included with the download.
 %
 % Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-03-27
+% Last Update: 2021-04-05
 
 
 
 %% FUNCTION
 
 % INPUT: planet - name of celestial body
-%        position - position of planet's geometric center
-%        gmst - Greenwich mean sidereal time [deg]
-%        reference_plane - 'equatorial' or 'ecliptic'
-%        units - units for drawing planet
-%        transparency - 0 for 100% transparent, 1 for 100% solid
+%        position - (OPTIONAL) position of planet's geometric center
+%        gmst - (OPTIONAL) Greenwich mean sidereal time [deg]
+%        reference_plane - (OPTIONAL) 'equatorial' or 'ecliptic'
+%        units - (OPTIONAL) units for drawing planet
+%        transparency - (OPTIONAL) 0 for 100% transparent, 1 for 100% solid
 % OUTPUT: 3D plot of specified celestial body 
 function planet3D(planet,position,gmst,reference_plane,units,transparency)
     
