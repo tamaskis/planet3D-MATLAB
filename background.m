@@ -5,7 +5,7 @@
 %   background(spec)
 %
 % Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-05-31
+% Last Update: 2021-06-01
 %
 %--------------------------------------------------------------------------
 %
@@ -13,15 +13,20 @@
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
 %
 % See "DOCUMENTATION.pdf" for additional documentation and examples. 
-% Examples can also be found in EXAMPLES.m. Both of these files are 
+% Examples can also be found in EXAMPLES.mlx. Both of these files are 
 % included with the download.
 %
 %--------------------------------------------------------------------------
 %
+% -------
 % INPUTS:
+% -------
 %   spec    'Black', 'Stars', or 'Milky Way'
 %
-% NOTE: The function call on "background" MUST occur before the function
+% -----
+% NOTE:
+% -----
+%   --> The function call on "background" MUST occur before the function
 %       call on "planet3D".
 %
 %==========================================================================

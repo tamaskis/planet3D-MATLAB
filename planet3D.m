@@ -9,36 +9,38 @@
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
 %
 % See "DOCUMENTATION.pdf" for additional documentation and examples. 
-% Examples can also be found in EXAMPLES.m. Both of these files are 
+% Examples can also be found in EXAMPLES.mlx. Both of these files are 
 % included with the download.
 %
 % Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-05-31
+% Last Update: 2021-06-01
 %
 %--------------------------------------------------------------------------
 %
+% -------
 % INPUTS:
+% -------
 %   planet          'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
 %                   'Earth Cloudy', 'Earth Night', 'Earth Night Cloudy',
 %                   'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', or
 %                   or 'Pluto'
-%   position        (OPTIONAL) position of planet's geometric center (3x1
-%                   double)
-%   gmst            (OPTIONAL) Greenwich mean sidereal time (1x1 double) 
-%                   [deg]
+%   position        (OPTIONAL) (3x1) position of planet's geometric center
+%   gmst            (OPTIONAL) (1x1) [deg] Greenwich mean sidereal time
 %   reference_plane	(OPTIONAL) 'equatorial' or 'ecliptic'
 %   units           (OPTIONAL) 'km', 'AU', 'm', 'ft', 'mi', or 'nmi'
-%   transparency    (OPTIONAL) 0 for 100% transparent, 1 for 100% solid
+%   transparency    (OPTIONAL) 0 for 100% transparency, 1 for 100% opacity
 %
-% NOTE: All parameters except for "planet" are optional. If you "skip over"
+% -----
+% NOTE:
+% -----
+%   --> All parameters except for "planet" are optional. If you "skip over"
 %       parameters, you need to use empty bracket (i.e. "[]") as
 %       placeholders, otherwise you can emit parameters altogether. For 
 %       example, if you don't want to specify "position", but do want to
 %       specify "units", then you would use the syntax "planet3D(planet,...
 %       [],[],[],units)". Alternatively, if we wanted to specify just the 
 %       "position", we could use the syntax "planet3D(planet,position)".
-%
-% NOTE: Use the "background" function included with download to set the
+%   --> Use the "background" function included with download to set the
 %       plot background. When using "background" to set the plot
 %       background, the function call on "background" must occur BEFORE the
 %       function call on "planet3D", otherwise the background will be
