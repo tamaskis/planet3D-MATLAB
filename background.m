@@ -1,11 +1,13 @@
+%==========================================================================
+%
 % background  Sets the plot background for drawing celestial bodies in 3D.
 %
-%   background(spec) sets the plot background for drawing celestial bodies
-%   in 3D. "spec" refers to the specified background, and can be set to
-%   'Black', 'Stars', or 'Milky Way'.
+%   background(spec)
 %
-%   NOTE: The function call on "background" must occur before the function
-%         call on "planet3D".
+% Copyright (c) 2021 Tamas Kis
+% Last Update: 2021-05-31
+%
+%--------------------------------------------------------------------------
 %
 % MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
@@ -14,15 +16,15 @@
 % Examples can also be found in EXAMPLES.m. Both of these files are 
 % included with the download.
 %
-% Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-03-27
-
-
-
-%% FUNCTION
-
-% INPUT: spec - 'Black', 'Stars', or 'Milky Way'
-% OUTPUT: background for plot
+%--------------------------------------------------------------------------
+%
+% INPUTS:
+%   spec    'Black', 'Stars', or 'Milky Way'
+%
+% NOTE: The function call on "background" MUST occur before the function
+%       call on "planet3D".
+%
+%==========================================================================
 function background(spec)
     
     % picture background

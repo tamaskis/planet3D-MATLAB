@@ -1,48 +1,9 @@
+%==========================================================================
+%
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
-%   planet3D(planet,position,gmst,reference_plane,units,transparency) draws
-%   a celestial body.
-%    --> planet: Can be specified as 'Sun', 'Moon', 'Mercury', 'Venus',
-%                'Earth', 'Earth Cloudy', 'Earth Night', 'Earth Night 
-%                Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
-%                or 'Pluto'.
-%    --> position: (OPTIONAL) Specifies the position of the celestial body.
-%                  If "position" is not specified, the function defaults to
-%                  [0,0,0]. NOTE: If you are also specifying "units", make
-%                  sure you input "position" in the correct units (i.e. in
-%                  the units you intend to use).
-%    --> gmst: (OPTIONAL) Specifies the Greenwich mean sidereal time (the
-%              angle from the direction of the vernal equinox to 0 degrees
-%              longitude, measured in degrees).
-%    --> reference_plane: (OPTIONAL) Specifies which reference plane the
-%                         celestial body is drawn with respect to. If
-%                         specified as 'equatorial', the reference plane is
-%                         taken to be the equatorial plane of the celestial
-%                         body. If specified as 'ecliptic', the celestial
-%                         body will be tilted by the obliquity (i.e. the
-%                         angle between the ecliptic plane and the
-%                         equatorial plane).
-%    --> units: (OPTIONAL) Specifies the units the celestial body should be
-%               drawn in. Units available are 'km', 'AU', 'm', 'ft', 'mi',
-%               and 'nmi'.
-%    --> transparency: (OPTIONAL) Specifies how transparent the celestial
-%                      body is (0 for 100% transparency, 1 for 100% solid).
-%
-%   NOTE: All parameters except for "planet" are optional. If you "skip 
-%         over" parameters, you need to use empty bracket (i.e. "[]") as 
-%         placeholders, otherwise you can emit parameters altogether. For 
-%         example, if you don't want to specify "position", but do want to
-%         specify "units", then you would use the syntax 
-%          "planet3D(planet,[],[],[],units)". Alternatively, if we wanted 
-%          to specify just the "position", we could use the syntax 
-%          "planet3D(planet,position)".
-%
-%   NOTE: Use the "background" function included with download to set the
-%         plot background. When using "background" to set the plot 
-%         background, the function call on "background" must occur before
-%         the function call on "planet3D", otherwise the background will be
-%         plotted over the celestial body.
+%   planet3D(planet,position,gmst,reference_plane,units,transparency)
 %
 % MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
@@ -52,19 +13,38 @@
 % included with the download.
 %
 % Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-04-05
-
-
-
-%% FUNCTION
-
-% INPUT: planet - name of celestial body
-%        position - (OPTIONAL) position of planet's geometric center
-%        gmst - (OPTIONAL) Greenwich mean sidereal time [deg]
-%        reference_plane - (OPTIONAL) 'equatorial' or 'ecliptic'
-%        units - (OPTIONAL) units for drawing planet
-%        transparency - (OPTIONAL) 0 for 100% transparent, 1 for 100% solid
-% OUTPUT: 3D plot of specified celestial body 
+% Last Update: 2021-05-31
+%
+%--------------------------------------------------------------------------
+%
+% INPUTS:
+%   planet          'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
+%                   'Earth Cloudy', 'Earth Night', 'Earth Night Cloudy',
+%                   'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', or
+%                   or 'Pluto'
+%   position        (OPTIONAL) position of planet's geometric center (3x1
+%                   double)
+%   gmst            (OPTIONAL) Greenwich mean sidereal time (1x1 double) 
+%                   [deg]
+%   reference_plane	(OPTIONAL) 'equatorial' or 'ecliptic'
+%   units           (OPTIONAL) 'km', 'AU', 'm', 'ft', 'mi', or 'nmi'
+%   transparency    (OPTIONAL) 0 for 100% transparent, 1 for 100% solid
+%
+% NOTE: All parameters except for "planet" are optional. If you "skip over"
+%       parameters, you need to use empty bracket (i.e. "[]") as
+%       placeholders, otherwise you can emit parameters altogether. For 
+%       example, if you don't want to specify "position", but do want to
+%       specify "units", then you would use the syntax "planet3D(planet,...
+%       [],[],[],units)". Alternatively, if we wanted to specify just the 
+%       "position", we could use the syntax "planet3D(planet,position)".
+%
+% NOTE: Use the "background" function included with download to set the
+%       plot background. When using "background" to set the plot
+%       background, the function call on "background" must occur BEFORE the
+%       function call on "planet3D", otherwise the background will be
+%       plotted over the celestial body.
+%
+%==========================================================================
 function planet3D(planet,position,gmst,reference_plane,units,transparency)
     
     % conversion factors
