@@ -16,9 +16,6 @@
 % See EXAMPLES.mlx for examples and "DOCUMENTATION.pdf" for additional 
 % documentation. Both of these files are included with the download.
 %
-% Copyright © 2021 Tamas Kis
-% Last Update: 2021-06-09
-%
 %--------------------------------------------------------------------------
 %
 % -------
