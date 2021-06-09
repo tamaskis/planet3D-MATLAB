@@ -4,7 +4,9 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 ## Syntax
 
+`planet3D(planet)`
 `planet3D(planet,position,gmst,reference_plane,units,transparency)`
+`planet_surface = planet3D(__)`
 
 **NOTE:** All parameters except for `planet` are optional. If you "skip over" parameters, you need to use empty bracket (i.e. `[]`) as placeholders, otherwise you can emit parameters altogether. For example, if you don't want to specify `position`, but do want to specify `units`, then you would use the syntax `planet3D(planet,[],[],[],units)`. Alternatively, if we wanted to specify just the `position`, we could use the syntax `planet3D(planet,position)`.
 
@@ -13,13 +15,16 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 ## Description
 
-`planet3D(planet,position,gmst,reference_plane,units,transparency)` draws a celestial body.
- - `planet`: Can be specified as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
- - `position`: (OPTIONAL) Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
- - `gmst`: (OPTIONAL) Specifies the Greenwich mean sidereal time (the angle from the direction of the vernal equinox to 0 degrees longitude, measured in degrees).
- - `reference_plane`: (OPTIONAL) Specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
- - `units`: (OPTIONAL) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
- - `transparency`: (OPTIONAL) Specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% opacity).
+`planet3D(planet)` draws the celestial body specified by `planet`, which can be input as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
+
+`planet3D(planet,position,gmst,reference_plane,units,transparency)` draws the celestial body specified by `planet`, with the additional formatting/plotting options, all of which are optional:
+ - `position`: Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
+ - `gmst`: Specifies the Greenwich mean sidereal time (the angle from the direction of the vernal equinox to 0 degrees longitude, measured in degrees).
+ - `reference_plane`: Specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
+ - `units`: Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
+ - `transparency`: Specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% opacity).
+
+`planet_surface = planet3D(__)` draws the celestial body and returns the Surface object defining the celestial body.
 
 <br/><br/> 
 <br/><br/> 
