@@ -19,7 +19,7 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
  - `gmst`: (OPTIONAL) Specifies the Greenwich mean sidereal time (the angle from the direction of the vernal equinox to 0 degrees longitude, measured in degrees).
  - `reference_plane`: (OPTIONAL) Specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
  - `units`: (OPTIONAL) Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
- - `transparency`: (OPTIONAL) Specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% solid).
+ - `transparency`: (OPTIONAL) Specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% opacity).
 
 <br/><br/> 
 <br/><br/> 
