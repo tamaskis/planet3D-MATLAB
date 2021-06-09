@@ -42,3 +42,11 @@ Sets the plot background for drawing celestial bodies in 3D.
 ## Description
 
 `background(spec)` sets the plot background for drawing celestial bodies in 3D. `spec` refers to the specified background, and can be set to `'Black'`, `'Stars'`, or `'Milky Way'`.
+
+
+<br/><br/> 
+<br/><br/> 
+# Examples and Additional Documentation
+
+   -  See "EXAMPLES.mlx" or the "Examples" tab on the File Exchange page for examples.
+   -  See "DOCUMENTATION.pdf" for additional documentation.
