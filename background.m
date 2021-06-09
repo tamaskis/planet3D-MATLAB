@@ -4,24 +4,27 @@
 %
 %   background(spec)
 %
-% Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-06-01
+% Copyright © 2021 Tamas Kis
+% Last Update: 2021-06-09
 %
 %--------------------------------------------------------------------------
 %
 % MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
+%   --> Pick of the Week: https://blogs.mathworks.com/pick/2021/05/31/visualizing-earth-and-celestial-bodies/
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
 %
-% See "DOCUMENTATION.pdf" for additional documentation and examples. 
-% Examples can also be found in EXAMPLES.mlx. Both of these files are 
-% included with the download.
+% See EXAMPLES.mlx for examples and "DOCUMENTATION.pdf" for additional 
+% documentation. Both of these files are included with the download.
+%
+% Copyright © 2021 Tamas Kis
+% Last Update: 2021-06-09
 %
 %--------------------------------------------------------------------------
 %
 % -------
 % INPUTS:
 % -------
-%   spec    'Black', 'Stars', or 'Milky Way'
+%   spec    - 'Black', 'Stars', or 'Milky Way'
 %
 % -----
 % NOTE:

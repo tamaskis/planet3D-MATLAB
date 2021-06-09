@@ -3,32 +3,44 @@
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
-%   planet3D(planet,position,gmst,reference_plane,units,transparency)
+%   planet_surface = planet3D(planet,position,gmst,reference_plane,...
+%       units,transparency)
+%
+% Copyright © 2021 Tamas Kis
+% Last Update: 2021-06-09
+%
+%--------------------------------------------------------------------------
 %
 % MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
+%   --> Pick of the Week: https://blogs.mathworks.com/pick/2021/05/31/visualizing-earth-and-celestial-bodies/
 % GitHub: https://github.com/tamaskis/planet3D-MATLAB
 %
-% See "DOCUMENTATION.pdf" for additional documentation and examples. 
-% Examples can also be found in EXAMPLES.mlx. Both of these files are 
-% included with the download.
-%
-% Copyright (c) 2021 Tamas Kis
-% Last Update: 2021-06-01
+% See EXAMPLES.mlx for examples and "DOCUMENTATION.pdf" for additional 
+% documentation. Both of these files are included with the download.
 %
 %--------------------------------------------------------------------------
 %
 % -------
 % INPUTS:
 % -------
-%   planet          'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
-%                   'Earth Cloudy', 'Earth Night', 'Earth Night Cloudy',
-%                   'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', or
-%                   or 'Pluto'
-%   position        (OPTIONAL) (3x1) position of planet's geometric center
-%   gmst            (OPTIONAL) (1x1) [deg] Greenwich mean sidereal time
-%   reference_plane	(OPTIONAL) 'equatorial' or 'ecliptic'
-%   units           (OPTIONAL) 'km', 'AU', 'm', 'ft', 'mi', or 'nmi'
-%   transparency    (OPTIONAL) 0 for 100% transparency, 1 for 100% opacity
+%   planet              - (char) 'Sun', 'Moon', 'Mercury', 'Venus',
+%                         'Earth', 'Earth Cloudy', 'Earth Night', 
+%                         'Earth Night Cloudy', 'Mars', 'Jupiter', 
+%                         'Saturn', 'Uranus', 'Neptune', or 'Pluto'
+%   position            - (OPTIONAL) (3×1) position of planet's geometric
+%                         center
+%   gmst                - (OPTIONAL) (1×1) [deg] Greenwich mean sidereal 
+%                         time
+%   reference_plane     - (OPTIONAL) (char) 'equatorial' or 'ecliptic'
+%   units               - (OPTIONAL) (char) 'km', 'AU', 'm', 'ft', 'mi', or 
+%                         'nmi'
+%   transparency        - (OPTIONAL) 0 for 100% transparency, 1 for 100%
+%                         opacity
+%
+% --------
+% OUTPUTS:
+% --------
+%   --> planet_surface  - (Surface) surface object for celestial body
 %
 % -----
 % NOTE:
@@ -47,7 +59,8 @@
 %       plotted over the celestial body.
 %
 %==========================================================================
-function planet3D(planet,position,gmst,reference_plane,units,transparency)
+function planet_surface = planet3D(planet,position,gmst,reference_plane,...
+    units,transparency)
     
     % conversion factors
     factors = {'km'   1;
