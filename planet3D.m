@@ -7,7 +7,7 @@
 %       units,transparency)
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-06-09
+% Last Update: 2021-06-23
 %
 %--------------------------------------------------------------------------
 %
@@ -181,7 +181,7 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
         % and don't want to plot thousands of lines) - this shrinking
         % process is condensed from the shrink_data_set function (see 
         % https://www.mathworks.com/matlabcentral/fileexchange/86218-reduce
-        % -number-of-data-points-shrink_data_set)
+        % -number-of-data-points-reduce_data_points)
         n_new = 200;
         colors = colors(1:round(n/n_new):n,:);
         
