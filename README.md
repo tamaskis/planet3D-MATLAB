@@ -49,4 +49,4 @@ Sets the plot background for drawing celestial bodies in 3D.
 # Examples and Additional Documentation
 
    -  See "EXAMPLES.mlx" or the "Examples" tab on the File Exchange page for examples.
-   -  See [Visualizing Celestial Bodies in 3D.pdf](https://github.com/tamaskis/planet3D-MATLAB/blob/main/DOCUMENTATION.pdf) (also included with download) for additional documentation.
+   -  See [Visualizing Celestial Bodies in 3D.pdf](https://tamaskis.github.io/documentation/Visualizing%20Celestial%20Bodies%20in%203D.pdf) (also included with download) for additional documentation.
