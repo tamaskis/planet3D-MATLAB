@@ -3,43 +3,40 @@
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
-%   planet_surface = planet3D(planet,position,gmst,reference_plane,...
-%       units,transparency)
+%   planet_surface = planet3D(planet,position,rotation_angle,...
+%       reference_plane,units,transparency)
+%
+% See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-06-23
+% Last Update: 2021-08-01
+% Website: tamaskis.github.io
+% Contact: tamas.a.kis@outlook.com
+%
+% REFERENCES:
+%   [1] https://tamaskis.github.io/documentation/Visualizing%20Celestial%20Bodies%20in%203D.pdf
 %
 %--------------------------------------------------------------------------
 %
-% MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
-%   --> Pick of the Week: https://blogs.mathworks.com/pick/2021/05/31/visualizing-earth-and-celestial-bodies/
-% GitHub: https://github.com/tamaskis/planet3D-MATLAB
-%
-% See EXAMPLES.mlx for examples and "DOCUMENTATION.pdf" for additional 
-% documentation. Both of these files are included with the download.
-%
-%--------------------------------------------------------------------------
-%
-% -------
-% INPUTS:
-% -------
+% ------
+% INPUT:
+% ------
 %   planet              - (char) 'Sun', 'Moon', 'Mercury', 'Venus',
 %                         'Earth', 'Earth Cloudy', 'Earth Night', 
 %                         'Earth Night Cloudy', 'Mars', 'Jupiter', 
 %                         'Saturn', 'Uranus', 'Neptune', or 'Pluto'
 %   position            - (OPTIONAL) (3×1) position of planet's geometric
 %                         center
-%   gmst                - (OPTIONAL) (1×1) [deg] Greenwich mean sidereal 
-%                         time
+%   rotation_angle      - (OPTIONAL) (1×1) rotation angle [deg]
 %   reference_plane     - (OPTIONAL) (char) 'equatorial' or 'ecliptic'
 %   units               - (OPTIONAL) (char) 'km', 'AU', 'm', 'ft', 'mi', or 
 %                         'nmi'
 %   transparency        - (OPTIONAL) 0 for 100% transparency, 1 for 100%
 %                         opacity
 %
-% --------
-% OUTPUTS:
-% --------
+% -------
+% OUTPUT:
+% -------
 %   --> planet_surface  - (Surface) surface object for celestial body
 %
 % -----
@@ -59,8 +56,8 @@
 %       plotted over the celestial body.
 %
 %==========================================================================
-function planet_surface = planet3D(planet,position,gmst,reference_plane,...
-    units,transparency)
+function planet_surface = planet3D(planet,position,rotation_angle,...
+    reference_plane,units,transparency)
     
     % conversion factors
     factors = {'km'   1;
@@ -76,8 +73,8 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
     end
     
     % sets default rotation angle to 0
-    if (nargin < 3) || isempty(gmst)
-        gmst = 0;
+    if (nargin < 3) || isempty(rotation_angle)
+        rotation_angle = 0;
     end
     
     % determines conversion factor to use
@@ -97,31 +94,32 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
         transparency = 1;
     end
     
-            % planet/body           % radius, R [km]  flattening, f   obliquity, obliquity [deg]
-    data = {'Sun'                   696000            0.000009        0;
-            'Moon'                  1738.0            0.0012          6.68;
-            'Mercury'               2439.0            0.0000          0.0;
-            'Venus'                 6052.0            0.000           177.3;
-            'Earth'                 6378.1363         0.0033528131    23.45;
-            'Earth Cloudy'          6378.1363         0.0033528131    23.45;
-            'Earth Night'           6378.1363         0.0033528131    23.45;
-            'Earth Night Cloudy'    6378.1363         0.0033528131    23.45;
-            'Mars'                  3397.2            0.00647630      25.19;
-            'Jupiter'               71492.0           0.0648744       3.12;
-            'Saturn'                60268.0           0.0979624       26.73;
-            'Uranus'                25559.0           0.0229273       97.86;
-            'Neptune'               24764.0           0.0171          29.56;
-            'Pluto'                 1151.0            0.0             118.0};
+            % planet/body          radius,     flattening,    obliquity,
+            %                      R [km]      f              obl [deg]
+    data = {'Sun'                  696000      0.000009       0;
+            'Moon'                 1738.0      0.0012         6.68;
+            'Mercury'              2439.0      0.0000         0.0;
+            'Venus'                6052.0      0.000          177.3;
+            'Earth'                6378.1363   0.0033528131   23.45;
+            'Earth Cloudy'         6378.1363   0.0033528131   23.45;
+            'Earth Night'          6378.1363   0.0033528131   23.45;
+            'Earth Night Cloudy'   6378.1363   0.0033528131   23.45;
+            'Mars'                 3397.2      0.00647630     25.19;
+            'Jupiter'              71492.0     0.0648744      3.12;
+            'Saturn'               60268.0     0.0979624      26.73;
+            'Uranus'               25559.0     0.0229273      97.86;
+            'Neptune'              24764.0     0.0171         29.56;
+            'Pluto'                1151.0      0.0            118.0};
     
     % determines mean equatorial radius and flattening
     R = data{strcmpi(data(:,1),planet),2};
     f = data{strcmpi(data(:,1),planet),3};
     
     % determines obliquity
-    if strcmp(reference_plane,'ecliptic')
-        obliquity = data{strcmpi(data(:,1),planet),4};
+    if strcmpi(reference_plane,'ecliptic')
+        obl = data{strcmpi(data(:,1),planet),4};
     else
-        obliquity = 0;
+        obl = 0;
     end
 
     % determines semi-major and semi-minor axes of body
@@ -132,36 +130,35 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
     [x,y,z] = ellipsoid(position(1),position(2),position(3),a,a,b,400);
     
     % reads in image
-    if strcmp(planet,'Earth Cloudy')
-        cdata = imread('Images/Earth.png')+imread('Images/Clouds.png');
-    elseif strcmp(planet,'Earth Night Cloudy')
-        cdata = imread('Images/Earth Night.png')+...
-            0.1*imread('Images/Clouds.png');
+    if strcmpi(planet,'Earth Cloudy')
+        cdata = imread('images/earth.png')+imread('images/clouds.png');
+    elseif strcmpi(planet,'Earth Night Cloudy')
+        cdata = imread('images/earthnight.png')+0.1*...
+            imread('images/clouds.png');
     else
-        cdata = imread(strcat('Images/',planet,'.png'));
+        cdata = imread(strcat('images/',lower(planet),'.png'));
     end
 
     % draws planet
     planet_surface = surface(x,y,z,'facecolor','texture','edgecolor',...
-        'none','cdata',flipud(cdata),'DiffuseStrength',1,...
-        'SpecularStrength',0,'FaceAlpha',transparency);
+        'none','cdata',flipud(cdata),'diffusestrength',1,...
+        'specularstrength',0,'facealpha',transparency);
     
     % tilts celestial body if referenced to ecliptic plane
-    rotate(planet_surface,[1,0,0],-obliquity);
+    rotate(planet_surface,[1,0,0],-obl);
     
-    % obtains new K axis
-    rotation_matrix = [1,0,0;0,cosd(obliquity),sind(obliquity);0,...
-        -sind(obliquity),cosd(obliquity)];
-    K = rotation_matrix*[0;0;1];
+    % obtains new 3rd axis
+    rotation_matrix = [1,0,0;0,cosd(obl),sind(obl);0,-sind(obl),cosd(obl)];
+    Z = rotation_matrix*[0;0;1];
     
-    % rotates celestial body about its axis
-    rotate(planet_surface,K',gmst);
+    % rotates celestial body about its 3rd axis
+    rotate(planet_surface,Z',rotation_angle);
     
     % draws rings of Saturn if drawing Saturn
-    if strcmp(planet,'Saturn')
+    if strcmpi(planet,'Saturn')
         
         % reads in image
-        cdata_rings = imread('Images/Saturn Rings.png');
+        cdata_rings = imread('images/saturnrings.png');
         
         % determines number of different colors in ring (if you look at the
         % image, the way it is formatted just looks like horizontal bands
@@ -179,14 +176,13 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
         % shrinks the data set of colors down to only 200 (this is for
         % speed - we plot the bands of Saturns rings as individual lines
         % and don't want to plot thousands of lines) - this shrinking
-        % process is condensed from the shrink_data_set function (see 
+        % process is condensed from the reduced_data_points function (see 
         % https://www.mathworks.com/matlabcentral/fileexchange/86218-reduce
         % -number-of-data-points-reduce_data_points)
         n_new = 200;
         colors = colors(1:round(n/n_new):n,:);
         
-        % scales colors to between 0 and 1 (currently have values between 0
-        % and 255)
+        % scales colors to between 0 and 1 (currently between 0 and 255)
         colors = colors/255;
         
         % plots the rings
@@ -204,7 +200,7 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
             y_ring = position(2)+r*sin(theta);
             z_ring = position(3)*ones(size(theta));
             
-            % rotates ring to equatorial plane (uses same rotation matrix
+            % rotates rings to equatorial plane (uses same rotation matrix
             % as tilting the planet earlier in code)
             for j = 1:length(x_ring)
                 new_coordinates = rotation_matrix*[x_ring(j);y_ring(j);...
@@ -214,7 +210,7 @@ function planet_surface = planet3D(planet,position,gmst,reference_plane,...
                 z_ring(j) = new_coordinates(3);
             end
             
-            % plots the ith line in process of forming Saturns rings
+            % plots the jth ring
             plot3(x_ring,y_ring,z_ring,'color',colors(i,:));
             
         end
