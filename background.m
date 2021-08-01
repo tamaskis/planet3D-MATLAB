@@ -4,23 +4,21 @@
 %
 %   background(spec)
 %
+% See also planet3D, ground_track.
+%
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-06-09
+% Last Update: 2021-08-01
+% Website: tamaskis.github.io
+% Contact: tamas.a.kis@outlook.com
+%
+% REFERENCES:
+%   [1] https://tamaskis.github.io/documentation/Visualizing%20Celestial%20Bodies%20in%203D.pdf
 %
 %--------------------------------------------------------------------------
 %
-% MATLAB Central File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-earth-and-celestial-bodies-planet3d
-%   --> Pick of the Week: https://blogs.mathworks.com/pick/2021/05/31/visualizing-earth-and-celestial-bodies/
-% GitHub: https://github.com/tamaskis/planet3D-MATLAB
-%
-% See EXAMPLES.mlx for examples and "DOCUMENTATION.pdf" for additional 
-% documentation. Both of these files are included with the download.
-%
-%--------------------------------------------------------------------------
-%
-% -------
-% INPUTS:
-% -------
+% ------
+% INPUT:
+% ------
 %   spec    - 'Black', 'Stars', or 'Milky Way'
 %
 % -----
@@ -33,13 +31,13 @@
 function background(spec)
     
     % picture background
-    if (~strcmp(spec,'Black'))
+    if (~strcmpi(spec,'Black'))
         
         % determines which image background to use
-        if strcmp(spec,'Milky Way')
-            cdata_background = imread('Images/Milky Way.png');
-        elseif strcmp(spec,'Stars')
-            cdata_background = imread('Images/Stars.png');
+        if strcmpi(spec,'Milky Way')
+            cdata_background = imread('images/milkyway.png');
+        elseif strcmpi(spec,'Stars')
+            cdata_background = imread('images/stars.png');
         end
         
         % axis for background
@@ -55,7 +53,7 @@ function background(spec)
         axis off;
         
     % black background
-    elseif strcmp(spec,'Black')
+    elseif strcmpi(spec,'Black')
         axis;
         set(gca,'color','k');
     end
