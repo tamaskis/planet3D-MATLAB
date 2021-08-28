@@ -85,7 +85,7 @@ function planet_surface = planet3D(planet,opts)
                'nmi'  1/1852};
            
             % planet/body          radius,       flattening,    obliquity,
-            %                      R [m]         f              obl [deg]
+            %                      R [m]         f [-]          obl [deg]
     data = {'Sun'                  696000e3      0.000009       0;
             'Moon'                 1738.0e3      0.0012         6.68;
             'Mercury'              2439.0e3      0.0000         0.0;

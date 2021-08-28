@@ -21,7 +21,7 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
    - `position` &rightarrow; specifies the position of the center of the celestial body 
    - `reference_plane` &rightarrow; specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
    - `theta` &rightarrow; specifies the rotation angle about the 3rd axis of the celestial body (in degrees)
-   - `units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
+   - `units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `'AU'`, `'ft'`, `'km'`, `m`, `'mi'`, and `'nmi`.
    - `transparency` &rightarrow; specifies how transparent the celestial body is (1 for 100% transparency, 0 for 100% opacity)
 
 **NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `color`, `line_width`, and `line_style` are only relevant when plotting the Earth's coastlines.
