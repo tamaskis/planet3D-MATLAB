@@ -7,19 +7,22 @@
 % See also planet3D, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-08-01
-% Website: tamaskis.github.io
+% Last Update: 2021-08-28
+% Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
+% TECHNICAL DOCUMENTATION:
+% https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf
+%
 % REFERENCES:
-%   [1] https://tamaskis.github.io/documentation/Visualizing%20Celestial%20Bodies%20in%203D.pdf
+%   [1] https://www.solarsystemscope.com/textures/
 %
 %--------------------------------------------------------------------------
 %
 % ------
 % INPUT:
 % ------
-%   spec    - 'Black', 'Stars', or 'Milky Way'
+%   spec    - (char) 'Black', 'Stars', or 'Milky Way'
 %
 % -----
 % NOTE:
