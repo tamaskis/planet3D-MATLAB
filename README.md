@@ -14,14 +14,16 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 `planet3D(planet)` draws the celestial body specified by `planet`, which can be input as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `Earth Coastlines`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
 
-`planet3D(planet,position,rotation_angle,reference_plane,units,transparency)` draws the celestial body specified by `planet`, with the additional formatting/plotting options, all of which are optional:
- - `position`: Specifies the position of the celestial body. If `position` is not specified, the function defaults to `[0,0,0]`. NOTE: If you are also specifying `units`, make sure you input `position` in the correct units (i.e. in the units you intend to use).
- - `rotation_angle`: Specifies the rotation angle about the 3rd axis of the celestial body (in degrees).
- - `reference_plane`: Specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
- - `units`: Specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
- - `transparency`: Specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% opacity).
+`planet3D(planet,opts)` does the same as the syntax above, but allows for the specification of optional plotting parameters. `opts` is a struct that has the following fields:
+   - `color` &rightarrow; specifies line color
+   - `line_width` &rightarrow; specifies line width
+   - `line_style` &rightarrow; specifies line style
+   - `position` &rightarrow; specifies the position of the center of the celestial body 
+   - `reference_plane` &rightarrow; specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
+   - `theta` &rightarrow; specifies the rotation angle about the 3rd axis of the celestial body (in degrees)
+   - `units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
+   - `transparency` &rightarrow; specifies how transparent the celestial body is (1 for 100% transparency, 0 for 100% opacity)
 
-`planet_surface = planet3D(__)` draws the celestial body and returns the Surface object defining the celestial body.
 
 <br/><br/> 
 <br/><br/> 
