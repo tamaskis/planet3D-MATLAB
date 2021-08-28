@@ -24,6 +24,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
    - `units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `km`, `AU`, `m`, `ft`, `mi`, `nmi`.
    - `transparency` &rightarrow; specifies how transparent the celestial body is (1 for 100% transparency, 0 for 100% opacity)
 
+**NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `color`, `line_width`, and `line_style` are only relevant when plotting the Earth's coastlines.
+
 
 <br/><br/> 
 <br/><br/> 
