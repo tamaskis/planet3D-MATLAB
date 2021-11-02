@@ -9,7 +9,7 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-08-28
+% Last Update: 2021-11-02
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
@@ -41,6 +41,9 @@
 %             'Earth Night Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 
 %             'Neptune', or 'Pluto'
 %   opts	- (OPTIONAL) (struct) plot options structure
+%       • clipping          - (char) 'on' or 'off' (defaults to 'off')
+%                               --> if 'on', the surface will be "clipped"
+%                                   to fit the axes when zooming in
 %       • color             - (char or 1×3 double) line color (only
 %                             relevant when drawing Earth coastlines)
 %                               --> can be specified as a name, short name,
@@ -146,6 +149,13 @@ function planet_surface = planet3D(planet,opts)
         obl = data{strcmpi(data(:,1),planet),4};
     else
         obl = 0;
+    end
+    
+    % sets clipping (defaults to 'off')
+    if (nargin == 1) || ~isfield(opts,'clipping')
+        clipping = 'off';
+    else
+        clipping = opts.clipping;
     end
     
     % sets line color (defaults to default MATLAB color)
@@ -338,7 +348,14 @@ function planet_surface = planet3D(planet,opts)
     % Basic plot formatting.
     % ----------------------
     
+    % set axis clipping
+    ax = gca;
+    ax.Clipping = clipping;
+    
+    % equal data unit lengths in each axes
     axis equal;
+    
+    % 3D view
     view(3);
     
 end
