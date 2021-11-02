@@ -352,7 +352,7 @@ function planet_surface = planet3D(planet,opts)
     ax = gca;
     ax.Clipping = clipping;
     
-    % equal data unit lengths in each axes
+    % equal data unit lengths along each axis
     axis equal;
     
     % 3D view
