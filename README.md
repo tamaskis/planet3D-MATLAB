@@ -1,5 +1,5 @@
 # `planet3D` [![View 3D Planets and Celestial Bodies (planet3D) on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/86483-3d-planets-and-celestial-bodies-planet3d)
-Creates high-resolution renderings of the Earth and the major celestial bodies in our solar system for space mechanics applications.
+Creates high-resolution renderings of the Earth and the major celestial bodies in our solar system for astrodynamics applications.
 
 
 ## Syntax
@@ -28,8 +28,14 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 **NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `Color`, `LineWidth`, and `LineStyle` are only relevant when plotting the Earth's coastlines.
 
 
+
+
 <br/><br/> 
 <br/><br/> 
+
+
+
+
 # `background`
 Sets the plot background for drawing celestial bodies in 3D.
 
@@ -46,9 +52,29 @@ Sets the plot background for drawing celestial bodies in 3D.
 `background(spec)` sets the plot background for drawing celestial bodies in 3D. `spec` refers to the specified background, and can be set to `'Black'`, `'Stars'`, or `'Milky Way'`.
 
 
+
+
 <br/><br/> 
 <br/><br/> 
+
+
+
+
 # Examples and Additional Documentation
 
    -  See "EXAMPLES.mlx" or the "Examples" tab on the File Exchange page for examples.
    -  See [Visualizing Celestial Bodies in 3D.pdf](https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf) (also included with download) for additional documentation.
+
+
+
+
+<br/><br/> 
+<br/><br/> 
+
+
+
+
+# Installation
+
+   - Open "3D Earth and Celestial Bodies (planet3D).mltbx" in the "INSTALL" folder to install as a toolbox. MATLAB will automatically perform the installation and add all the functions, images, and data to the MATLAB search path.
+   - Alternatively, the "planet3D" folder can be copied to the directory of a script that you want to use the functions in. At the beginning of the script, include "`addpath('planet3D')`" to add all functions, images, and data to the MATLAB search path.

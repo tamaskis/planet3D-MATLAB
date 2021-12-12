@@ -5,6 +5,7 @@
 %
 %   planet3D(planet)
 %   planet3D(planet,opts)
+%   planet_surface = planet3D(__)
 %
 % See also background, ground_track.
 %
@@ -36,11 +37,11 @@
 % ------
 % INPUT:
 % ------
-%   planet  - (char) 'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
-%             'Earth Cloudy', 'Earth Coastlines', 'Earth Night', 
-%             'Earth Night Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 
-%             'Neptune', or 'Pluto'
-%   opts    - (OPTIONAL) (struct) plot options
+%   planet          - (char) 'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
+%                     'Earth Cloudy', 'Earth Coastlines', 'Earth Night', 
+%                     'Earth Night Cloudy', 'Mars', 'Jupiter', 'Saturn', 
+%                     'Uranus', 'Neptune', or 'Pluto'
+%   opts            - (OPTIONAL) (1×1 struct) plot options
 %       • Clipping  - (char) 'on' or 'off' (defaults to 'off')
 %                       --> if 'on', the surface will be "clipped" to fit
 %                           the axes when zooming in
@@ -58,6 +59,11 @@
 %       • RefPlane  - (char) 'equatorial' or 'ecliptic'
 %       • RotAngle  - (1×1 double) rotation angle [deg]
 %       • Units     - (char) 'AU', 'ft', 'km', 'm', 'mi', or 'nmi'
+%
+% -------
+% OUTPUT:
+% -------
+%   planet_surface  - (1×1 Surface) surface object defining planet
 %
 % -----
 % NOTE:
