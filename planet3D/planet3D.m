@@ -205,12 +205,11 @@ function planet_surface = planet3D(planet,opts)
         
         % loads image data
         if strcmpi(planet,'Earth Cloudy')
-            cdata = imread('images/earth.png')+imread('images/clouds.png');
+            cdata = imread('earth.png')+imread('clouds.png');
         elseif strcmpi(planet,'Earth Night Cloudy')
-            cdata = imread('images/earthnight.png')+...
-                0.1*imread('images/clouds.png');
+            cdata = imread('earthnight.png')+0.1*imread('clouds.png');
         else
-            cdata = imread(strcat('images/',lower(planet),'.png'));
+            cdata = imread(strcat('',lower(planet),'.png'));
         end
 
         % draws planet
@@ -229,7 +228,7 @@ function planet_surface = planet3D(planet,opts)
             'FaceAlpha',FaceAlpha);
         
         % loads coastline data
-        coastlines_data = struct2array(load('images/coastlines_data'));
+        coastlines_data = struct2array(load('coastlines_data'));
         
         % extracts ECEF coordinates of coastlines
         x_coast = coastlines_data.X;
@@ -286,7 +285,7 @@ function planet_surface = planet3D(planet,opts)
     if strcmpi(planet,'Saturn')
         
         % reads in image
-        cdata_rings = imread('images/saturnrings.png');
+        cdata_rings = imread('saturnrings.png');
         
         % determines number of different colors in ring (if you look at the
         % image, the way it is formatted just looks like horizontal bands

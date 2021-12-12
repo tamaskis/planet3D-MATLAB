@@ -7,7 +7,7 @@
 % See also planet3D, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-08-28
+% Last Update: 2021-12-12
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
@@ -38,9 +38,9 @@ function background(spec)
         
         % determines which image background to use
         if strcmpi(spec,'Milky Way')
-            cdata_background = imread('images/milkyway.png');
+            cdata_background = imread('milkyway.png');
         elseif strcmpi(spec,'Stars')
-            cdata_background = imread('images/stars.png');
+            cdata_background = imread('stars.png');
         end
         
         % axis for background
