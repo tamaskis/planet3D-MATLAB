@@ -9,7 +9,7 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-11-02
+% Last Update: 2021-12-12
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
@@ -40,25 +40,24 @@
 %             'Earth Cloudy', 'Earth Coastlines', 'Earth Night', 
 %             'Earth Night Cloudy', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 
 %             'Neptune', or 'Pluto'
-%   opts	- (OPTIONAL) (struct) plot options structure
-%       • clipping          - (char) 'on' or 'off' (defaults to 'off')
-%                               --> if 'on', the surface will be "clipped"
-%                                   to fit the axes when zooming in
-%       • color             - (char or 1×3 double) line color (only
-%                             relevant when drawing Earth coastlines)
-%                               --> can be specified as a name, short name,
-%                                   or RGB triplet [rgb]
-%       • line_width        - (1×1 double) line width (only relevant when
-%                              drawing Earth coastlines)
-%       • line_style        - (char) line style (only relevant when drawing
-%                             Earth coastlines)
-%       • position          - (3×1 double) position of planet's geometric 
-%                             center
-%       • reference_plane   - (char) 'equatorial' or 'ecliptic'
-%       • theta             - (1×1 double) rotation angle [deg]
-%       • transparency      - (1×1 double) 1 for 100% transparency, 0 for
-%                             100% opacity
-%       • units             - (char) 'AU', 'ft', 'km', 'm', 'mi', or 'nmi'
+%   opts    - (OPTIONAL) (struct) plot options
+%       • Clipping  - (char) 'on' or 'off' (defaults to 'off')
+%                       --> if 'on', the surface will be "clipped" to fit
+%                           the axes when zooming in
+%       • Color     - (char or 1×3 double) line color (only relevant
+%                     when drawing Earth coastlines)
+%                       --> can be specified as a name, short name, or RGB
+%                            triplet [rgb]
+%       • FaceAlpha - (1×1 double) 0 for 100% transparency, 1 for 100%
+%                     opacity
+%       • LineWidth - (1×1 double) line width (only relevant when drawing
+%                     Earth coastlines)
+%       • LineStyle - (char) line style (only relevant when drawing Earth
+%                     coastlines)
+%       • Position  - (3×1 double) position of planet's geometric center
+%       • RefPlane  - (char) 'equatorial' or 'ecliptic'
+%       • RotAngle  - (1×1 double) rotation angle [deg]
+%       • Units     - (char) 'AU', 'ft', 'km', 'm', 'mi', or 'nmi'
 %
 % -----
 % NOTE:
@@ -110,38 +109,38 @@ function planet_surface = planet3D(planet,opts)
     % ------------------------------------
     
     % sets position of planet's geometric center (defaults to origin)
-    if (nargin == 1) || ~isfield(opts,'position')
+    if (nargin == 1) || ~isfield(opts,'Position')
         position = [0;0;0];
     else
-        position = opts.position;
+        position = opts.Position;
     end
     
     % sets rotation angle (defaults to 0)
-    if (nargin == 1) || ~isfield(opts,'theta')
+    if (nargin == 1) || ~isfield(opts,'RotAngle')
         theta = 0;
     else
-        theta = opts.theta;
+        theta = opts.RotAngle;
     end
     
     % sets conversion factor (defaults to 1, assuming units of m)
-    if (nargin == 1) || ~isfield(opts,'units')
+    if (nargin == 1) || ~isfield(opts,'Units')
         units = 'm';
     else
-        units = opts.units;
+        units = opts.Units;
     end
     
     % sets reference plane (defaults to equatorial plane)
-    if (nargin == 1) || ~isfield(opts,'reference_plane')
+    if (nargin == 1) || ~isfield(opts,'RefPlane')
         reference_plane = 'equatorial';
     else
-        reference_plane = opts.reference_plane;
+        reference_plane = opts.RefPlane;
     end
     
-    % sets transparency (defaults to 0 so celestial body is solid)
-    if (nargin == 1) || ~isfield(opts,'transparency')
-        transparency = 0;
+    % sets transparency (defaults to 1 so celestial body is solid)
+    if (nargin == 1) || ~isfield(opts,'FaceAlpha')
+        FaceAlpha = 1;
     else
-        transparency = opts.transparency;
+        FaceAlpha = opts.FaceAlpha;
     end
     
     % determines obliquity
@@ -152,31 +151,31 @@ function planet_surface = planet3D(planet,opts)
     end
     
     % sets clipping (defaults to 'off')
-    if (nargin == 1) || ~isfield(opts,'clipping')
-        clipping = 'off';
+    if (nargin == 1) || ~isfield(opts,'Clipping')
+        Clipping = 'off';
     else
-        clipping = opts.clipping;
+        Clipping = opts.Clipping;
     end
     
     % sets line color (defaults to default MATLAB color)
-    if (nargin == 1) || ~isfield(opts,'color')
-        color = [0,0.4470,0.7410];
+    if (nargin == 1) || ~isfield(opts,'Color')
+        Color = [0,0.4470,0.7410];
     else
-        color = opts.color;
+        Color = opts.Color;
     end
 
     % sets line style (defaults to solid line)
-    if (nargin == 1) || ~isfield(opts,'line_style')
-        line_style = '-';
+    if (nargin == 1) || ~isfield(opts,'LineStyle')
+        LineStyle = '-';
     else
-        line_style = opts.line_style;
+        LineStyle = opts.LineStyle;
     end
     
     % sets line width (defaults to 0.5)
-    if (nargin == 1) || ~isfield(opts,'line_width')
-        line_width = 0.5;
+    if (nargin == 1) || ~isfield(opts,'LineWidth')
+        LineWidth = 0.5;
     else
-        line_width = opts.line_width;
+        LineWidth = opts.LineWidth;
     end
     
     % -------------------------------
@@ -215,9 +214,9 @@ function planet_surface = planet3D(planet,opts)
         end
 
         % draws planet
-        planet_surface = surface(x,y,z,'facecolor','texture',...
-            'edgecolor','none','cdata',flipud(cdata),'diffusestrength',...
-            1,'specularstrength',0,'facealpha',1-transparency);
+        planet_surface = surface(x,y,z,'FaceColor','texture',...
+            'EdgeColor','none','CData',flipud(cdata),'DiffuseStrength',...
+            1,'SpecularStrength',0,'FaceAlpha',FaceAlpha);
 
     end
     
@@ -225,9 +224,9 @@ function planet_surface = planet3D(planet,opts)
     if strcmpi(planet,'Earth Coastlines')
         
         % white surface (lines will be plotted on top of this)
-        planet_surface = surface(x,y,z,'facecolor','w','edgecolor',...
-            'none','diffusestrength',1,'specularstrength',0,...
-            'facealpha',1-transparency);
+        planet_surface = surface(x,y,z,'FaceColor','w','EdgeColor',...
+            'none','DiffuseStrength',1,'SpecularStrength',0,...
+            'FaceAlpha',FaceAlpha);
         
         % loads coastline data
         coastlines_data = struct2array(load('images/coastlines_data'));
@@ -278,8 +277,8 @@ function planet_surface = planet3D(planet,opts)
     % draws coastlines
     if strcmpi(planet,'Earth Coastlines')
         hold on;
-        plot3(x_coast,y_coast,z_coast,'linewidth',line_width,...
-            'linestyle',line_style,'color',color);
+        plot3(x_coast,y_coast,z_coast,'LineWidth',LineWidth,'LineStyle',...
+            LineStyle,'Color',Color);
         hold off;
     end
     
@@ -337,7 +336,7 @@ function planet_surface = planet3D(planet,opts)
             z_ring = new_coordinates(3,:);
             
             % plots the jth ring
-            plot3(x_ring,y_ring,z_ring,'color',colors(i,:));
+            plot3(x_ring,y_ring,z_ring,'Color',colors(i,:));
             
         end
         hold off;
@@ -350,7 +349,7 @@ function planet_surface = planet3D(planet,opts)
     
     % set axis clipping
     ax = gca;
-    ax.Clipping = clipping;
+    ax.Clipping = Clipping;
     
     % equal data unit lengths along each axis
     axis equal;

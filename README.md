@@ -15,17 +15,17 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 `planet3D(planet)` draws the celestial body specified by `planet`, which can be input as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Earth Coastlines'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
 
 `planet3D(planet,opts)` does the same as the syntax above, but allows for the specification of optional plotting parameters. `opts` is a struct that has the following fields:
-   - `clipping` &rightarrow; `'on'` if surfaces should be "[clipped](https://www.mathworks.com/help/matlab/creating_plots/clipping-in-plots-and-graphs.html)" to fit axes, `'off'` otherwise
-   - `color` &rightarrow; specifies line color
-   - `line_width` &rightarrow; specifies line width
-   - `line_style` &rightarrow; specifies line style
-   - `position` &rightarrow; specifies the position of the center of the celestial body 
-   - `reference_plane` &rightarrow; specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
-   - `theta` &rightarrow; specifies the rotation angle about the 3rd axis of the celestial body (in degrees)
-   - `units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `'AU'`, `'ft'`, `'km'`, `'m'`, `'mi'`, and `'nmi'`.
-   - `transparency` &rightarrow; specifies how transparent the celestial body is (1 for 100% transparency, 0 for 100% opacity)
+   - `Clipping` &rightarrow; `'on'` if surfaces should be "[clipped](https://www.mathworks.com/help/matlab/creating_plots/clipping-in-plots-and-graphs.html)" to fit axes, `'off'` otherwise (defaults to `off`)
+   - `Color` &rightarrow; specifies line color
+   - `FaceAlpha` &rightarrow; specifies how transparent the celestial body is (0 for 100% transparency, 1 for 100% opacity)
+   - `LineWidth` &rightarrow; specifies line width
+   - `LineStyle` &rightarrow; specifies line style
+   - `Position` &rightarrow; specifies the position of the center of the celestial body 
+   - `RefPlane` &rightarrow; specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
+   - `RotAngle` &rightarrow; specifies the rotation angle about the 3rd axis of the celestial body (in degrees)
+   - `Units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `'AU'`, `'ft'`, `'km'`, `'m'`, `'mi'`, and `'nmi'`.
 
-**NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `color`, `line_width`, and `line_style` are only relevant when plotting the Earth's coastlines.
+**NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `Color`, `LineWidth`, and `LineStyle` are only relevant when plotting the Earth's coastlines.
 
 
 <br/><br/> 
