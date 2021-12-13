@@ -12,14 +12,14 @@ https://github.com/tamaskis/planet3D-MATLAB
 Technical Documentation:
 https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf</param.description>
     <param.screenshot>/Users/tamaskis/Documents/Code/MATLAB/functions/planet3D-MATLAB/local/MATLAB Central File Exchange Picture.jpg</param.screenshot>
-    <param.version>5.0.0</param.version>
+    <param.version>5.0.1</param.version>
     <param.output>${PROJECT_ROOT}/3D Earth and Celestial Bodies (planet3D).mltbx</param.output>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
     <param.guid>3215e027-02c3-4673-9adc-dcbbaa3cee5e</param.guid>
-    <param.exclude.filters />
+    <param.exclude.filters>.DS_Store</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples />
     <param.demosxml />
@@ -55,7 +55,6 @@ https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf<
       <param.products.id />
       <param.products.version />
       <param.platforms />
-      <param.exclude.filters />
       <param.exclude.pcodedmfiles />
       <param.examples />
       <param.demosxml />

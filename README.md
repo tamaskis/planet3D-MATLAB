@@ -77,4 +77,4 @@ Sets the plot background for drawing celestial bodies in 3D.
 # Installation
 
    - Open "3D Earth and Celestial Bodies (planet3D).mltbx" in the "INSTALL" folder to install as a toolbox. MATLAB will automatically perform the installation and add all the functions, images, and data to the MATLAB search path.
-   - Alternatively, the "planet3D" folder can be copied to the directory of a script that you want to use the functions in. At the beginning of the script, include "`addpath('planet3D')`" to add all functions, images, and data to the MATLAB search path.
+   - Alternatively, the "planet3D" folder can be copied to the folder containing the script that you want to use the functions in. At the beginning of the script, include "`addpath('planet3D')`" to add all functions, images, and data to the MATLAB search path.
