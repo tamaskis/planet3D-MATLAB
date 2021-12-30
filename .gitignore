@@ -1,3 +1,4 @@
 .DS_Store
 local/
 INSTALL/3D Earth and Celestial Bodies (planet3D).prj
+INSTALL/remove_paths.m
