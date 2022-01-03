@@ -5,7 +5,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 ## Syntax
 
 `planet3D(planet)`\
-`planet3D(planet,opts)`
+`planet3D(planet,opts)`\
+`planet_surface = planet3D(__)`
 
 **NOTE:** Use the `background` function (see below) to set the plot background. When using `background` to set the plot background, the function call on `background` must occur *before* the function call on `planet3D`, otherwise the background will be plotted *over* the celestial body.
 
@@ -24,6 +25,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
    - `RefPlane` &rightarrow; specifies which reference plane the celestial body is drawn with respect to. If specified as `equatorial`, the reference plane is taken to be the equatorial plane of the celestial body. If specified as `ecliptic`, the celestial body will be tilted by the obliquity (i.e. the angle between the ecliptic plane and the equatorial plane).
    - `RotAngle` &rightarrow; specifies the rotation angle about the 3rd axis of the celestial body (in degrees)
    - `Units` &rightarrow; specifies the units the celestial body should be drawn in. Units available are `'AU'`, `'ft'`, `'km'`, `'m'`, `'mi'`, and `'nmi'`.
+
+`planet_surface = planet3D(__)` does the same as the previous two syntaxes, but also returns the `Surface` object defining the planet.
 
 **NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `Color`, `LineWidth`, and `LineStyle` are only relevant when plotting the Earth's coastlines.
 
