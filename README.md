@@ -52,13 +52,13 @@ Sets the plot background for drawing celestial bodies in 3D.
 `background(spec)`
 
 
-## Note
-   - The function call on `background` must occur before the function call on `planet3D`.
-
-
 ## Description
 
 `background(spec)` sets the plot background for drawing celestial bodies in 3D. `spec` refers to the specified background, and can be set to `'Black'`, `'Stars'`, or `'Milky Way'`.
+
+
+## Note
+   - The function call on `background` must occur before the function call on `planet3D`.
 
 
 
