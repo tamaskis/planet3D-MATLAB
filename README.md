@@ -4,16 +4,21 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 ## Syntax
 
+`planet3D`\
 `planet3D(planet)`\
 `planet3D(planet,opts)`\
 `planet_surface = planet3D(__)`
 
-**NOTE:** Use the `background` function (see below) to set the plot background. When using `background` to set the plot background, the function call on `background` must occur *before* the function call on `planet3D`, otherwise the background will be plotted *over* the celestial body.
+**NOTE:**
+   - Use the `background` function (see below) to set the plot background. When using `background` to set the plot background, the function call on `background` must occur *before* the function call on `planet3D`, otherwise the background will be plotted *over* the celestial body.
+   - If you want to produce separate plots on separate figures using the `planet3D` function, always use the [`drawnow`](https://www.mathworks.com/help/matlab/ref/drawnow.html) command before initializing a new figure to ensure that the correct plots are drawn on the correct figures.
 
 
 ## Description
 
-`planet3D(planet)` draws the celestial body specified by `planet`, which can be input as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Earth Coastlines'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`.
+`planet3D` draws the Earth with clouds. Units are in meters by default.
+
+`planet3D(planet)` draws the celestial body specified by `planet`, which can be input as `'Sun'`, `'Moon'`, `'Mercury'`, `'Venus'`, `'Earth'`, `'Earth Cloudy'`, `'Earth Night'`, `'Earth Night Cloudy'`, `'Earth Coastlines'`, `'Mars'`, `'Jupiter'`, `'Saturn'`, `'Uranus'`, `'Neptune'`, or `'Pluto'`. Units are in meters by default.
 
 `planet3D(planet,opts)` does the same as the syntax above, but allows for the specification of optional plotting parameters. `opts` is a struct that has the following fields:
    - `Clipping` &rightarrow; `'on'` if surfaces should be "[clipped](https://www.mathworks.com/help/matlab/creating_plots/clipping-in-plots-and-graphs.html)" to fit axes, `'off'` otherwise (defaults to `off`)
@@ -28,7 +33,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 `planet_surface = planet3D(__)` does the same as the previous two syntaxes, but also returns the `Surface` object defining the planet.
 
-**NOTE:** All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `Color`, `LineWidth`, and `LineStyle` are only relevant when plotting the Earth's coastlines.
+**NOTE:**
+   - All fields of `opts` do NOT have to be defined; when a field is left undefined, the rest of the plot settings are set to default values. Additionally, `Color`, `LineWidth`, and `LineStyle` are only relevant when plotting the Earth's coastlines.
 
 
 

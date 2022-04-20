@@ -3,6 +3,7 @@
 % planet3D  Creates high-resolution renderings of the Earth and the major 
 % celestial bodies in our solar system for space mechanics applications.
 %
+%   planet3D
 %   planet3D(planet)
 %   planet3D(planet,opts)
 %   planet_surface = planet3D(__)
@@ -10,38 +11,24 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-12-12
+% Last Update: 2022-04-20
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
 % TECHNICAL DOCUMENTATION:
 % https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf
 %
-% REFERENCES:
-%   [1] https://mathworks.com/matlabcentral/fileexchange/27123-earth-sized-sphere-with-topography
-%   [2] https://apps.dtic.mil/sti/pdfs/AD1000581.pdf
-%   [3] https://www.mathworks.com/matlabcentral/fileexchange/13823-3d-earth-example
-%   [4] https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html
-%   [5] https://en.wikipedia.org/wiki/Moon
-%   [6] https://www.jpl.nasa.gov/images/pluto-color-map
-%   [7] https://en.wikipedia.org/wiki/Rings_of_Saturn
-%   [8] https://www.solarsystemscope.com/textures/
-%   [9] https://en.wikipedia.org/wiki/Sun
-%   [10] https://visibleearth.nasa.gov/images/57730/the-blue-marble-land-surface-ocean-color-and-sea-ice/57731l
-%   [11] Vallado, "Fundamentals of Astrodynamics and Applications", 4th
-%        Ed., Tables D-3, D-4, and D-5 (pp. 1041-1042)
-%   [12] https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html
-%
 %--------------------------------------------------------------------------
 %
 % ------
 % INPUT:
 % ------
-%   planet          - (char) 'Sun', 'Moon', 'Mercury', 'Venus', 'Earth', 
-%                     'Earth Cloudy', 'Earth Coastlines', 'Earth Night', 
-%                     'Earth Night Cloudy', 'Mars', 'Jupiter', 'Saturn', 
-%                     'Uranus', 'Neptune', or 'Pluto'
-%   opts            - (OPTIONAL) (1×1 struct) plot options
+%   planet          - (char) (OPTIONAL) 'Sun', 'Moon', 'Mercury', 'Venus', 
+%                     'Earth', 'Earth Cloudy', 'Earth Coastlines', 
+%                     'Earth Night', 'Earth Night Cloudy', 'Mars', 
+%                     'Jupiter', 'Saturn', 'Uranus', 'Neptune', or 'Pluto'
+%                     (defaults to 'Earth Cloudy')
+%   opts            - (1×1 struct) (OPTIONAL) plot options
 %       • Clipping  - (char) 'on' or 'off' (defaults to 'off')
 %                       --> if 'on', the surface will be "clipped" to fit
 %                           the axes when zooming in
@@ -76,6 +63,10 @@
 %       background, the function call on "background" must occur BEFORE the
 %       function call on "planet3D", otherwise the background will be
 %       plotted over the celestial body.
+%   --> If you want to produce separate plots on separate figures using the
+%       "planet3D" function, always use the "drawnow" command before
+%       initializing a new figure to ensure that the correct plots are
+%       drawn on the correct figures.
 %
 %==========================================================================
 function planet_surface = planet3D(planet,opts)
@@ -91,7 +82,7 @@ function planet_surface = planet3D(planet,opts)
                'm'    1;
                'mi'   100/160934.4;
                'nmi'  1/1852};
-           
+    
             % planet/body          radius,       flattening,    obliquity,
             %                      R [m]         f [-]          obl [deg]
     data = {'Sun'                  696000e3      0.000009       0;
@@ -114,36 +105,41 @@ function planet_surface = planet3D(planet,opts)
     % Sets (or defaults) plotting options.
     % ------------------------------------
     
+    % defaults "planet" to 'Earth Cloudy' if not input
+    if (nargin == 0) || isempty(planet)
+        planet = 'Earth Cloudy';
+    end
+    
     % sets position of planet's geometric center (defaults to origin)
-    if (nargin == 1) || ~isfield(opts,'Position')
+    if (nargin < 2) || ~isfield(opts,'Position')
         position = [0;0;0];
     else
         position = opts.Position;
     end
     
     % sets rotation angle (defaults to 0)
-    if (nargin == 1) || ~isfield(opts,'RotAngle')
+    if (nargin < 2) || ~isfield(opts,'RotAngle')
         theta = 0;
     else
         theta = opts.RotAngle;
     end
     
     % sets conversion factor (defaults to 1, assuming units of m)
-    if (nargin == 1) || ~isfield(opts,'Units')
+    if (nargin < 2) || ~isfield(opts,'Units')
         units = 'm';
     else
         units = opts.Units;
     end
     
     % sets reference plane (defaults to equatorial plane)
-    if (nargin == 1) || ~isfield(opts,'RefPlane')
+    if (nargin < 2) || ~isfield(opts,'RefPlane')
         reference_plane = 'equatorial';
     else
         reference_plane = opts.RefPlane;
     end
     
     % sets transparency (defaults to 1 so celestial body is solid)
-    if (nargin == 1) || ~isfield(opts,'FaceAlpha')
+    if (nargin < 2) || ~isfield(opts,'FaceAlpha')
         FaceAlpha = 1;
     else
         FaceAlpha = opts.FaceAlpha;
@@ -157,28 +153,28 @@ function planet_surface = planet3D(planet,opts)
     end
     
     % sets clipping (defaults to 'off')
-    if (nargin == 1) || ~isfield(opts,'Clipping')
+    if (nargin < 2) || ~isfield(opts,'Clipping')
         Clipping = 'off';
     else
         Clipping = opts.Clipping;
     end
     
     % sets line color (defaults to default MATLAB color)
-    if (nargin == 1) || ~isfield(opts,'Color')
+    if (nargin < 2) || ~isfield(opts,'Color')
         Color = [0,0.4470,0.7410];
     else
         Color = opts.Color;
     end
-
+    
     % sets line style (defaults to solid line)
-    if (nargin == 1) || ~isfield(opts,'LineStyle')
+    if (nargin < 2) || ~isfield(opts,'LineStyle')
         LineStyle = '-';
     else
         LineStyle = opts.LineStyle;
     end
     
     % sets line width (defaults to 0.5)
-    if (nargin == 1) || ~isfield(opts,'LineWidth')
+    if (nargin < 2) || ~isfield(opts,'LineWidth')
         LineWidth = 0.5;
     else
         LineWidth = opts.LineWidth;
@@ -217,12 +213,12 @@ function planet_surface = planet3D(planet,opts)
         else
             cdata = imread(strcat('',lower(planet),'.png'));
         end
-
+        
         % draws planet
         planet_surface = surface(x,y,z,'FaceColor','texture',...
             'EdgeColor','none','CData',flipud(cdata),'DiffuseStrength',...
             1,'SpecularStrength',0,'FaceAlpha',FaceAlpha);
-
+        
     end
     
     % drawing Earth coastlines
@@ -251,19 +247,19 @@ function planet_surface = planet3D(planet,opts)
     R3 = [ cosd(theta)   sind(theta)   0;
           -sind(theta)   cosd(theta)   0;
            0             0             1];
-       
+    
     % transformation matrix for tilt
     R1 = [1   0            0;
           0   cosd(obl)   -sind(obl);
           0   sind(obl)    cosd(obl)];
-      
+    
     % axes for rotations (must be row vectors)
     alpha1 = [1,0,0];
     alpha2 = (R1*[0;0;1])';
     
     % tilts celestial body if referenced to ecliptic plane
     rotate(planet_surface,alpha1,obl);
-
+    
     % rotates celestial body about its 3rd axis
     rotate(planet_surface,alpha2,theta);
     

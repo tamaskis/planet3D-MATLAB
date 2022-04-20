@@ -7,15 +7,12 @@
 % See also planet3D, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2021-12-12
+% Last Update: 2022-04-20
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
 % TECHNICAL DOCUMENTATION:
 % https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf
-%
-% REFERENCES:
-%   [1] https://www.solarsystemscope.com/textures/
 %
 %--------------------------------------------------------------------------
 %
