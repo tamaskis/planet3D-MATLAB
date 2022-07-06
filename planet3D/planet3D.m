@@ -11,24 +11,24 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2022-04-20
+% Last Update: 2022-07-06
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
 % TECHNICAL DOCUMENTATION:
-% https://tamaskis.github.io/documentation/Visualizing_Celestial_Bodies_in_3D.pdf
+% https://tamaskis.github.io/files/Visualizing_Celestial_Bodies_in_3D.pdf
 %
 %--------------------------------------------------------------------------
 %
 % ------
 % INPUT:
 % ------
-%   planet          - (char) (OPTIONAL) 'Sun', 'Moon', 'Mercury', 'Venus', 
+%   planet          - (OPTIONAL) (char) 'Sun', 'Moon', 'Mercury', 'Venus', 
 %                     'Earth', 'Earth Cloudy', 'Earth Coastlines', 
 %                     'Earth Night', 'Earth Night Cloudy', 'Mars', 
 %                     'Jupiter', 'Saturn', 'Uranus', 'Neptune', or 'Pluto'
 %                     (defaults to 'Earth Cloudy')
-%   opts            - (1×1 struct) (OPTIONAL) plot options
+%   opts            - (OPTIONAL) (1×1 struct) plot options
 %       • Clipping  - (char) 'on' or 'off' (defaults to 'off')
 %                       --> if 'on', the surface will be "clipped" to fit
 %                           the axes when zooming in
@@ -230,7 +230,8 @@ function planet_surface = planet3D(planet,opts)
             'FaceAlpha',FaceAlpha);
         
         % loads coastline data
-        coastlines_data = struct2array(load('coastlines_data'));
+        coastlines_data = struct2cell(load('coastlines_data'));
+        coastlines_data = [coastlines_data{:}];
         
         % extracts ECEF coordinates of coastlines
         x_coast = coastlines_data.X;
