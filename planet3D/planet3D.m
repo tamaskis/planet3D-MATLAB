@@ -11,7 +11,7 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2022-07-06
+% Last Update: 2023-05-17
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
@@ -195,8 +195,8 @@ function planet_surface = planet3D(planet,opts)
     a = conversion_factor*R;
     b = a*(1-f);
     
-    % coordinates of ellipsoid (uses 400 panels)
-    [x,y,z] = ellipsoid(position(1),position(2),position(3),a,a,b,400);
+    % coordinates of ellipsoid centered at (0,0,0) using 400 panels
+    [x,y,z] = ellipsoid(0,0,0,a,a,b,400);
     
     % ------------------------------------------------------------
     % Defining surfaces/coordinates needed to draw celestial body.
@@ -271,6 +271,14 @@ function planet_surface = planet3D(planet,opts)
         y_coast = new_coordinates(2,:);
         z_coast = new_coordinates(3,:);
     end
+    
+    % ---------------------
+    % Performs translation.
+    % ---------------------
+    
+    planet_surface.XData = planet_surface.XData+position(1);
+    planet_surface.YData = planet_surface.YData+position(2);
+    planet_surface.ZData = planet_surface.ZData+position(3);
     
     % --------------------------------------------------------------
     % Drawing additional lines (i.e. coastlines or rings of Saturn).
