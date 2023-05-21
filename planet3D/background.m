@@ -7,11 +7,11 @@
 % See also planet3D, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2022-07-06
+% Last Update: 2023-05-20
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
-% TECHNICAL DOCUMENTATION:
+% Technical Documentation:
 % https://tamaskis.github.io/files/Visualizing_Celestial_Bodies_in_3D.pdf
 %
 %--------------------------------------------------------------------------
@@ -19,13 +19,13 @@
 % ------
 % INPUT:
 % ------
-%   spec    - (char) 'Black', 'Stars', or 'Milky Way'
+%   spec    - (char array) 'Black', 'Stars', or 'Milky Way'
 %
 % -----
 % NOTE:
 % -----
-%   --> The function call on "background" MUST occur before the function
-%       call on "planet3D".
+%   • The function call on "background" MUST occur before the function call
+%     on "planet3D".
 %
 %==========================================================================
 function background(spec)

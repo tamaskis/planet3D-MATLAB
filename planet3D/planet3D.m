@@ -11,11 +11,11 @@
 % See also background, ground_track.
 %
 % Copyright © 2021 Tamas Kis
-% Last Update: 2023-05-17
+% Last Update: 2023-05-20
 % Website: https://tamaskis.github.io
 % Contact: tamas.a.kis@outlook.com
 %
-% TECHNICAL DOCUMENTATION:
+% Technical Documentation:
 % https://tamaskis.github.io/files/Visualizing_Celestial_Bodies_in_3D.pdf
 %
 %--------------------------------------------------------------------------
@@ -23,29 +23,29 @@
 % ------
 % INPUT:
 % ------
-%   planet          - (OPTIONAL) (char) 'Sun', 'Moon', 'Mercury', 'Venus', 
-%                     'Earth', 'Earth Cloudy', 'Earth Coastlines', 
+%   planet          - (OPTIONAL) (char array) 'Sun', 'Moon', 'Mercury', 
+%                     'Venus', 'Earth', 'Earth Cloudy', 'Earth Coastlines', 
 %                     'Earth Night', 'Earth Night Cloudy', 'Mars', 
 %                     'Jupiter', 'Saturn', 'Uranus', 'Neptune', or 'Pluto'
 %                     (defaults to 'Earth Cloudy')
 %   opts            - (OPTIONAL) (1×1 struct) plot options
-%       • Clipping  - (char) 'on' or 'off' (defaults to 'off')
-%                       --> if 'on', the surface will be "clipped" to fit
-%                           the axes when zooming in
-%       • Color     - (char or 1×3 double) line color (only relevant
+%       • Clipping  - (char array) 'on' or 'off' (defaults to 'off')
+%                       • if 'on', the surface will be "clipped" to fit the
+%                         axes when zooming in
+%       • Color     - (char array or 1×3 double) line color (only relevant
 %                     when drawing Earth coastlines)
-%                       --> can be specified as a name, short name, or RGB
-%                            triplet [rgb]
+%                       • can be specified as a name, short name, or RGB
+%                         triplet [rgb]
 %       • FaceAlpha - (1×1 double) 0 for 100% transparency, 1 for 100%
 %                     opacity
 %       • LineWidth - (1×1 double) line width (only relevant when drawing
 %                     Earth coastlines)
-%       • LineStyle - (char) line style (only relevant when drawing Earth
-%                     coastlines)
+%       • LineStyle - (char array) line style (only relevant when drawing 
+%                     Earth coastlines)
 %       • Position  - (3×1 double) position of planet's geometric center
-%       • RefPlane  - (char) 'equatorial' or 'ecliptic'
+%       • RefPlane  - (char array) 'equatorial' or 'ecliptic'
 %       • RotAngle  - (1×1 double) rotation angle [deg]
-%       • Units     - (char) 'AU', 'ft', 'km', 'm', 'mi', or 'nmi'
+%       • Units     - (char array) 'AU', 'ft', 'km', 'm', 'mi', or 'nmi'
 %
 % -------
 % OUTPUT:
@@ -55,18 +55,17 @@
 % -----
 % NOTE:
 % -----
-%   --> All fields of "opts" do NOT have to be defined; when a field is
-%       left undefined, the rest of the plot settings are set to default 
-%       values.
-%   --> Use the "background" function included with download to set the
-%       plot background. When using "background" to set the plot
-%       background, the function call on "background" must occur BEFORE the
-%       function call on "planet3D", otherwise the background will be
-%       plotted over the celestial body.
-%   --> If you want to produce separate plots on separate figures using the
-%       "planet3D" function, always use the "drawnow" command before
-%       initializing a new figure to ensure that the correct plots are
-%       drawn on the correct figures.
+%   • All fields of "opts" do NOT have to be defined; when a field is left
+%     undefined, the rest of the plot settings are set to default values.
+%   • Use the "background" function included with download to set the plot 
+%     background. When using "background" to set the plot background, the 
+%     function call on "background" must occur BEFORE the function call on
+%     "planet3D", otherwise the background will be plotted over the
+%     celestial body.
+%   • If you want to produce separate plots on separate figures using the
+%     "planet3D" function, always use the "drawnow" command before
+%     initializing a new figure to ensure that the correct plots are drawn
+%     on the correct figures.
 %
 %==========================================================================
 function planet_surface = planet3D(planet,opts)
@@ -276,9 +275,17 @@ function planet_surface = planet3D(planet,opts)
     % Performs translation.
     % ---------------------
     
+    % translates coordinates of surface object
     planet_surface.XData = planet_surface.XData+position(1);
     planet_surface.YData = planet_surface.YData+position(2);
     planet_surface.ZData = planet_surface.ZData+position(3);
+    
+    % translates coordinates of Earth coastlines
+    if strcmpi(planet,'Earth Coastlines')
+        x_coast = x_coast+position(1);
+        y_coast = y_coast+position(1);
+        z_coast = z_coast+position(1);
+    end
     
     % --------------------------------------------------------------
     % Drawing additional lines (i.e. coastlines or rings of Saturn).
@@ -315,8 +322,8 @@ function planet_surface = planet3D(planet,opts)
         % speed - we plot the bands of Saturns rings as individual lines
         % and don't want to plot thousands of lines) - this shrinking
         % process is condensed from the reduced_data_points function (see 
-        % https://www.mathworks.com/matlabcentral/fileexchange/86218-reduce
-        % -number-of-data-points-reduce_data_points)
+        % https://github.com/tamaskis/Useful_Functions_for_MATLAB-MATLAB/
+        % blob/main/functions/reduce_data_points.m)
         n_new = 200;
         colors = colors(1:round(n/n_new):n,:);
         
@@ -333,17 +340,22 @@ function planet_surface = planet3D(planet,opts)
             % the planet s(https://en.wikipedia.org/wiki/Rings_of_Saturn)
             r = conversion_factor*(R+7000000+((80000000-7000000)/n_new)*i);
             
-            % x, y, and z coordinates of Saturns rings in equatorial plane
-            x_ring = position(1)+r*cos(theta);
-            y_ring = position(2)+r*sin(theta);
-            z_ring = position(3)*ones(size(theta));
+            % x, y, and z coordinates of Saturns rings in equatorial plane,
+            % centered at origin
+            x_ring = r*cos(theta);
+            y_ring = r*sin(theta);
+            z_ring = ones(size(theta));
             
-            % rotates rings to equatorial plane (uses same rotation matrix
-            % as tilting the planet earlier in code)
+            % tilts rings
             new_coordinates = R1*[x_ring;y_ring;z_ring];
             x_ring = new_coordinates(1,:);
             y_ring = new_coordinates(2,:);
             z_ring = new_coordinates(3,:);
+            
+            % centers rings on main body
+            x_ring = x_ring+position(1);
+            y_ring = y_ring+position(1);
+            z_ring = z_ring+position(1);
             
             % plots the jth ring
             plot3(x_ring,y_ring,z_ring,'Color',colors(i,:));

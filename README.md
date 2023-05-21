@@ -37,8 +37,8 @@ Creates high-resolution renderings of the Earth and the major celestial bodies i
 
 
 
-<br/><br/> 
-<br/><br/> 
+
+<br><br><br><br>
 
 
 
@@ -63,27 +63,25 @@ Sets the plot background for drawing celestial bodies in 3D.
 
 
 
-<br/><br/> 
-<br/><br/> 
+<br><br><br><br>
 
 
 
 
 # Examples and Additional Documentation
 
-   -  See "EXAMPLES.mlx" or the "Examples" tab on the File Exchange page for examples.
+   -  See `EXAMPLES.mlx` or the "Examples" tab on the File Exchange page for examples.
    -  See [Visualizing Celestial Bodies in 3D.pdf](https://tamaskis.github.io/files/Visualizing_Celestial_Bodies_in_3D.pdf) (also included with download) for additional documentation.
 
 
 
 
-<br/><br/> 
-<br/><br/> 
+<br><br><br><br> 
 
 
 
 
 # Installation
 
-   - Open "3D Earth and Celestial Bodies (planet3D).mltbx" in the "INSTALL" folder to install as a toolbox. MATLAB will automatically perform the installation and add all the functions, images, and data to the MATLAB search path.
+   - Open "`3D Earth and Celestial Bodies (planet3D).mltbx`" in the "`INSTALL`"" folder to install as a toolbox. MATLAB will automatically perform the installation and add all the functions, images, and data to the MATLAB search path.
    - Alternatively, the "planet3D" folder can be copy and pasted into the folder containing the script that you want to use the functions in. At the beginning of the script, include "`addpath('planet3D')`" to add all functions, images, and data to the MATLAB search path.
